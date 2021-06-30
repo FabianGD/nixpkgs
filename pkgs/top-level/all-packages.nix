@@ -934,6 +934,8 @@ in
 
   hyper = callPackage ../applications/terminal-emulators/hyper { };
 
+  hyper-canary = callPackage ../applications/terminal-emulators/hyper-canary { };
+
   iterm2 = callPackage ../applications/terminal-emulators/iterm2 {};
 
   kitty = callPackage ../applications/terminal-emulators/kitty {
