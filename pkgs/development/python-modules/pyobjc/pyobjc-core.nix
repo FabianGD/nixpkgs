@@ -1,28 +1,40 @@
-{ lib, fetchFromGitHub, isPy3k, python, buildPythonPackage,  }:
+{ lib, stdenv
+, python
+, buildPythonPackage
+, fetchFromGitHub
+, pytestCheckHook
+, Foundation
+, libffi
+}:
 
 buildPythonPackage rec {
   pname = "pyobjc";
   version = "7.3";
 
-  # Gives "No matching distribution found for
-  # pyobjc-framework-Collaboration==4.0b1 (from pyobjc==4.0b1)"
-  # disabled = isPy3k;
-
-   src = fetchFromGitHub {
+  src = fetchFromGitHub {
     owner = "ronaldoussoren";
     repo = pname;
     rev = "v${version}";
     sha256 = "Y8Su1qNpc9aOnlrklc379JGHsozf3+nJlcwM4s5ZV28=";
   };
 
-  buildPhase = ''
-    ${python.interpreter} install.py
+  buildInputs = [  ];
+
+  buildInputs = [ Foundation libffi ];
+
+  hardeningDisable = ["strictoverflow"];
+
+  preBuild = ''
+    cd pyobjc-core
   '';
+
+  # doCheck = !stdenv.isDarwin;
+  # checkPhase = "HOME=$TMPDIR pytest";
+  checkInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "The Python <-> Objective-C Bridge with bindings for macOS frameworks";
     homepage = "https://github.com/ronaldoussoren/pyobjc";
-    maintainers = with maintainers; [ fabiangd ];
     license = licenses.bsd3;
   };
 }

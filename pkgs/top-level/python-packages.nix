@@ -6856,6 +6856,10 @@ in {
 
   pyobihai = callPackage ../development/python-modules/pyobihai { };
 
+  pyobjc = callPackage ../development/python-modules/pyobjc { Foundation = pkgs.Foundation; };
+
+  pyobjc-core = callPackage ../development/python-modules/pyobjc/pyobjc-core.nix { Foundation = pkgs.darwin.apple_sdk.frameworks.Foundation; };
+
   pyocr = callPackage ../development/python-modules/pyocr {
     tesseract = pkgs.tesseract4;
   };

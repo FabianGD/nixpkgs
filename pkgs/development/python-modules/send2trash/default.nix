@@ -6,22 +6,22 @@
 
 buildPythonPackage rec {
   pname = "Send2Trash";
-  version = "1.5.0";
+  version = "1.8.0";
 
   src = fetchFromGitHub {
-    owner = "hsoft";
-    repo = "send2trash";
+    owner = "arsenetar";
+    repo = lib.strings.toLower pname;
     rev = version;
-    sha256 = "1c76zldhw2ay7q7r00nnzcampjz9lkqfcbzqpm0iqp5i6bmmv30v";
+    sha256 = "HZeN/kpisPRrVwg1xGGUjxspztZKRbacGY5gpa537cw=";
   };
 
-  doCheck = !stdenv.isDarwin;
+  # doCheck = !stdenv.isDarwin;
   checkPhase = "HOME=$TMPDIR pytest";
   checkInputs = [ pytest ];
 
   meta = with lib; {
     description = "Send file to trash natively under macOS, Windows and Linux";
-    homepage = "https://github.com/hsoft/send2trash";
+    homepage = "https://github.com/arsenetar/send2trash";
     license = licenses.bsd3;
   };
 }
